@@ -1,11 +1,11 @@
 Bacteria[] bob;
-int s=10, numBacteria=10;
+int s=10, numBacteria=20;
 boolean ismousepress=false;
 void setup()
 {
   frameRate(15);
   size(500,500);
-  bob=new Bacteria[500];
+  bob=new Bacteria[1000];
   for (int i=0; i<numBacteria; i++)
     bob[i] =new Bacteria();
 }
@@ -28,7 +28,7 @@ void mousePressed()
     {
       
       if(bob[i].myX <= mouseX && (bob[i].myX + bob[i].size)>= mouseX 
-      && bob[i].myY <= mouseY && (bob[i].myY + bob[i].size)>= mouseY && numBacteria<500) 
+      && bob[i].myY <= mouseY && (bob[i].myY + bob[i].size)>= mouseY && numBacteria<1000) 
         {
           
           bob[numBacteria]=new Bacteria();
