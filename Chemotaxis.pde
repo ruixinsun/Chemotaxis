@@ -1,58 +1,88 @@
- //declare bacteria variables here   
- void setup()   
- {     
- 	//initialize bacteria variables here   
- }   
- void draw()   
- {    
- 	//move and show the bacteria   
- }  
- class Bacteria    
- {     
- 	//lots of java!   
- }    
- 
- 
- 
- 
- 
- 
- 
- 
- 
- Bacteria[] bob;
+Bacteria[] bob;
+int s=10, numBacteria=10;
+boolean ismousepress=false;
 void setup()
 {
- 
+  frameRate(15);
   size(500,500);
-  bob=new Bacteria[1000];
-  for (int i=0; i<bob.length; i++)
+  bob=new Bacteria[500];
+  for (int i=0; i<numBacteria; i++)
     bob[i] =new Bacteria();
 }
 void draw()
 {
   background(0);
-  for (int i=0; i<bob.length; i++)
+  for (int i=0; i<numBacteria; i++)
     {
-      bob[i].show();
+      bob[i].show(s);
       bob[i].walk();
     }
+    
+   if (s<6)s=6;
+   if(s>180)s=180;
+  
 }
+void mousePressed()
+  {
+    for (int i=0; i<numBacteria; i++)
+    {
+      
+      if(bob[i].myX <= mouseX && (bob[i].myX + bob[i].size)>= mouseX 
+      && bob[i].myY <= mouseY && (bob[i].myY + bob[i].size)>= mouseY && numBacteria<500) 
+        {
+          
+          bob[numBacteria]=new Bacteria();
+          bob[numBacteria].myX=bob[i].myX;
+           bob[numBacteria].myY=bob[i].myY;
+           
+          numBacteria++;
+        }
+    }
+    
+   
+  }
+void keyPressed()
+{
+  if (keyCode == UP)
+    s++;
+  if (keyCode ==DOWN)
+   s--;
+}
+
 class Bacteria
 {
-  int myX, myY;
+  public int myX, myY, myColor[],size;
   Bacteria()
   {
-    myX=myY=250;
+    myX=(int)(Math.random()*500);
+    myY=(int)(Math.random()*500);
+    myColor = new int[4];
+    for (int i = 0; i<4; i++)
+    {
+      myColor[i]=(int)(Math.random()*255);
+    }
   }
   void walk()
   {
-    //myX=myX+(int)(Math.random()*7)-3;
-      //{-3,-2,-1,0,1,2,3}
-    myY+=(int)(Math.random()*7)-3;
+    if (myX>mouseX)
+      myX=myX+(int)(Math.random()*5)-5;
+    if (myX<mouseX)
+      myX=myX+(int)(Math.random()*5);
+    if (myY>mouseY)
+      myY+=(int)(Math.random()*5)-5;
+    if (myY<mouseY)
+      myY+=(int)(Math.random()*5);
+    if (myY==mouseY || myX==mouseX)
+       {
+         myX+=(int)(Math.random()*20)-10;
+         myY+=(int)(Math.random()*20)-10;
+       }
   }
-  void show()
+  void show(int size)
   {
-    ellipse(myX,myY,30,30);
+    this.size=size;
+    fill(myColor[0],myColor[1],myColor[2],myColor[3]);
+    ellipse(myX,myY,size,size);
   }
+  
 }
